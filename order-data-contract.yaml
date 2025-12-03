@@ -15,7 +15,7 @@ tags:
 schema:
   - name: "order"
     physicalType: "table"
-    physicalName: "orders"
+    physicalName: "T_ORD_HDR_01"
     quality:
       - type: "sql"
         description: "Total amount must equal sum of line item totals (quantity * unit_price)"
@@ -28,6 +28,7 @@ schema:
         mustBe: 0
     properties:
       - name: "order_id"
+        physicalName: "ORD_ID"
         physicalType: "uuid"
         required: true
         unique: true
@@ -38,6 +39,7 @@ schema:
             url: "file://business-definitions/order/order_id.yaml"
 
       - name: "order_status"
+        physicalName: "ORD_STS_CD"
         physicalType: "varchar(20)"
         required: true
         authoritativeDefinitions:
@@ -45,6 +47,7 @@ schema:
             url: "file://business-definitions/order/order_status.yaml"
 
       - name: "total_amount"
+        physicalName: "TOT_AMT"
         physicalType: "decimal(10,2)"
         required: true
         authoritativeDefinitions:
@@ -52,6 +55,7 @@ schema:
             url: "file://business-definitions/order/total_amount.yaml"
 
       - name: "passenger_name"
+        physicalName: "PAX_NM"
         physicalType: "varchar(200)"
         required: true
         criticalDataElement: true
@@ -60,12 +64,14 @@ schema:
             url: "file://business-definitions/passenger/passenger_name.yaml"
 
       - name: "passenger_date_of_birth"
+        physicalName: "PAX_DOB"
         physicalType: "date"
         authoritativeDefinitions:
           - type: "businessDefinition"
             url: "file://business-definitions/passenger/passenger_date_of_birth.yaml"
 
       - name: "inserted_at"
+        physicalName: "INS_TS"
         physicalType: "timestamp"
         required: true
         authoritativeDefinitions:
@@ -74,9 +80,10 @@ schema:
 
   - name: "order_line_items"
     physicalType: "table"
-    physicalName: "order_line_items"
+    physicalName: "T_ORD_LI_DTL_01"
     properties:
       - name: "order_id"
+        physicalName: "ORD_ID"
         physicalType: "uuid"
         required: true
         primaryKey: true
@@ -92,6 +99,7 @@ schema:
             url: "file://business-definitions/order/order_id.yaml"
 
       - name: "line_item_no"
+        physicalName: "LN_ITM_NBR"
         physicalType: "int"
         required: true
         primaryKey: true
@@ -101,6 +109,7 @@ schema:
             url: "file://business-definitions/order/line_item_no.yaml"
 
       - name: "flight_number"
+        physicalName: "FLT_NBR"
         physicalType: "varchar(10)"
         required: true
         authoritativeDefinitions:
@@ -108,6 +117,7 @@ schema:
             url: "file://business-definitions/flight/flight_number.yaml"
 
       - name: "quantity"
+        physicalName: "QTY"
         physicalType: "int"
         required: true
         authoritativeDefinitions:
@@ -115,6 +125,7 @@ schema:
             url: "file://business-definitions/order/quantity.yaml"
 
       - name: "unit_price"
+        physicalName: "UNT_PRC"
         physicalType: "decimal(10,2)"
         required: true
         authoritativeDefinitions:
@@ -122,6 +133,7 @@ schema:
             url: "file://business-definitions/order/unit_price.yaml"
 
       - name: "inserted_at"
+        physicalName: "INS_TS"
         physicalType: "timestamp"
         required: true
         authoritativeDefinitions:
