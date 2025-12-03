@@ -1,0 +1,14 @@
+id: "order/total_amount"
+title: "Total Amount"
+owner: "order-management-team"
+type: "number"
+description: "The total monetary amount of the Order including all fees and taxes."
+classification: "confidential"
+pii: false
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+  - "financial"
+examples:
+  - "1299.99"

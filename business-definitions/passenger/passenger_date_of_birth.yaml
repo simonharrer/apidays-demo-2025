@@ -1,0 +1,15 @@
+id: "passenger/passenger_date_of_birth"
+title: "Passenger Date of Birth"
+owner: "passenger-team"
+type: "date"
+description: "The date of birth of the passenger"
+classification: "sensitive"
+pii: true
+criticalDataElement: true
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+  - "passenger"
+examples:
+  - "1985-03-15"

@@ -1,0 +1,13 @@
+id: "order/line_item_no"
+title: "Line Item Number"
+owner: "order-management-team"
+type: "integer"
+description: "The sequential number of a line item within an order."
+classification: "internal"
+pii: false
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+examples:
+  - 1

@@ -1,0 +1,14 @@
+id: "passenger/passenger_name"
+title: "Passenger Name"
+owner: "passenger-team"
+type: "string"
+description: "The full name of the passenger."
+classification: "sensitive"
+pii: true
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+  - "passenger"
+examples:
+  - "John Smith"

@@ -1,0 +1,14 @@
+id: "order/unit_price"
+title: "Unit Price"
+owner: "order-management-team"
+type: "number"
+description: "The price per unit for an Order Item."
+classification: "confidential"
+pii: false
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+  - "financial"
+examples:
+  - 149.99

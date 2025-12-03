@@ -1,0 +1,15 @@
+id: "flight/flight_number"
+title: "Flight Number"
+owner: "flight-team"
+type: "string"
+pattern: "^[A-Z]{2}\\d{1,4}$"
+description: "The airline flight number consisting of a two-letter IATA airline code followed by up to four digits."
+classification: "internal"
+pii: false
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+  - "flight"
+examples:
+  - "LH123"

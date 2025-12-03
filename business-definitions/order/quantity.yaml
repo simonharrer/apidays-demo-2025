@@ -1,0 +1,13 @@
+id: "order/quantity"
+title: "Quantity"
+owner: "order-management-team"
+type: "integer"
+description: "The number of units for an Order Item."
+classification: "internal"
+pii: false
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+examples:
+  - 1

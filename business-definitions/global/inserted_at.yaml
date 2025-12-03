@@ -1,0 +1,12 @@
+id: "global/inserted_at"
+title: "Inserted At"
+owner: "platform-team"
+type: "timestamp"
+description: "Timestamp when the record was inserted into the database."
+classification: "internal"
+pii: false
+tags:
+  - "technical"
+  - "audit"
+examples:
+  - "2025-12-03T10:30:00Z"

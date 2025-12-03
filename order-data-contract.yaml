@@ -1,0 +1,142 @@
+apiVersion: v3.1.0
+kind: DataContract
+id: "550e8400-e29b-41d4-a716-446655440001"
+name: "IATA Order Data Contract"
+version: "1.0.0"
+status: active
+domain: "order-management"
+description:
+  purpose: "Data contract for IATA NDC Order data including order details, passenger information, and line items."
+tags:
+  - "iata"
+  - "ndc"
+  - "order"
+
+schema:
+  - name: "order"
+    physicalType: "table"
+    physicalName: "orders"
+    quality:
+      - type: "sql"
+        description: "Total amount must equal sum of line item totals (quantity * unit_price)"
+        query: |
+          SELECT o.order_id
+          FROM orders o
+          LEFT JOIN order_line_items oli ON o.order_id = oli.order_id
+          GROUP BY o.order_id, o.total_amount
+          HAVING o.total_amount != COALESCE(SUM(oli.quantity * oli.unit_price), 0)
+        mustBe: 0
+    properties:
+      - name: "order_id"
+        physicalType: "uuid"
+        required: true
+        unique: true
+        primaryKey: true
+        primaryKeyPosition: 1
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/order_id.yaml"
+
+      - name: "order_status"
+        physicalType: "varchar(20)"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/order_status.yaml"
+
+      - name: "total_amount"
+        physicalType: "decimal(10,2)"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/total_amount.yaml"
+
+      - name: "passenger_name"
+        physicalType: "varchar(200)"
+        required: true
+        criticalDataElement: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/passenger/passenger_name.yaml"
+
+      - name: "passenger_date_of_birth"
+        physicalType: "date"
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/passenger/passenger_date_of_birth.yaml"
+
+      - name: "inserted_at"
+        physicalType: "timestamp"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/global/inserted_at.yaml"
+
+  - name: "order_line_items"
+    physicalType: "table"
+    physicalName: "order_line_items"
+    properties:
+      - name: "order_id"
+        physicalType: "uuid"
+        required: true
+        primaryKey: true
+        primaryKeyPosition: 1
+        relationships:
+          - type: "foreignKey"
+            to: "order.order_id"
+        customProperties:
+          - property: "references"
+            value: "order.order_id"
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/order_id.yaml"
+
+      - name: "line_item_no"
+        physicalType: "int"
+        required: true
+        primaryKey: true
+        primaryKeyPosition: 2
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/line_item_no.yaml"
+
+      - name: "flight_number"
+        physicalType: "varchar(10)"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/flight/flight_number.yaml"
+
+      - name: "quantity"
+        physicalType: "int"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/quantity.yaml"
+
+      - name: "unit_price"
+        physicalType: "decimal(10,2)"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/order/unit_price.yaml"
+
+      - name: "inserted_at"
+        physicalType: "timestamp"
+        required: true
+        authoritativeDefinitions:
+          - type: "businessDefinition"
+            url: "file://business-definitions/global/inserted_at.yaml"
+
+servers:
+  - server: "databricks-prod"
+    type: "databricks"
+    environment: "production"
+    catalog: "airline_catalog"
+    schema: "order_management"
+
+support:
+  - channel: "email"
+    url: "mailto:order-management-team@airline.com"
+  - channel: "teams"
+    url: "https://teams.microsoft.com/l/channel/order-management-support"
