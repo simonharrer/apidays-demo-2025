@@ -1,4 +1,4 @@
-id: "global/inserted_at"
+id: "technical/inserted_at"
 title: "Inserted At"
 owner: "platform-team"
 type: "timestamp"

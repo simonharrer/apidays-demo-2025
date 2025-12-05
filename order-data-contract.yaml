@@ -1,7 +1,7 @@
 apiVersion: v3.1.0
 kind: DataContract
 id: "550e8400-e29b-41d4-a716-446655440001"
-name: "IATA Order Data Contract"
+name: "Orders Data Contract (apidays 2025 - demo)"
 version: "1.0.0"
 status: active
 domain: "order-management"
@@ -35,7 +35,7 @@ schema:
         primaryKey: true
         primaryKeyPosition: 1
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/order_id.yaml"
 
       - name: "order_status"
@@ -43,7 +43,7 @@ schema:
         physicalType: "varchar(20)"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/order_status.yaml"
 
       - name: "total_amount"
@@ -51,7 +51,7 @@ schema:
         physicalType: "decimal(10,2)"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/total_amount.yaml"
 
       - name: "passenger_name"
@@ -60,14 +60,14 @@ schema:
         required: true
         criticalDataElement: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/passenger/passenger_name.yaml"
 
       - name: "passenger_date_of_birth"
         physicalName: "PAX_DOB"
         physicalType: "date"
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/passenger/passenger_date_of_birth.yaml"
 
       - name: "inserted_at"
@@ -75,8 +75,8 @@ schema:
         physicalType: "timestamp"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
-            url: "file://business-definitions/global/inserted_at.yaml"
+          - type: "definition"
+            url: "file://business-definitions/technical/inserted_at.yaml"
 
   - name: "order_line_items"
     physicalType: "table"
@@ -95,7 +95,7 @@ schema:
           - property: "references"
             value: "order.order_id"
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/order_id.yaml"
 
       - name: "line_item_no"
@@ -105,7 +105,7 @@ schema:
         primaryKey: true
         primaryKeyPosition: 2
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/line_item_no.yaml"
 
       - name: "flight_number"
@@ -113,7 +113,7 @@ schema:
         physicalType: "varchar(10)"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/flight/flight_number.yaml"
 
       - name: "quantity"
@@ -121,7 +121,7 @@ schema:
         physicalType: "int"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/quantity.yaml"
 
       - name: "unit_price"
@@ -129,7 +129,7 @@ schema:
         physicalType: "decimal(10,2)"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
+          - type: "definition"
             url: "file://business-definitions/order/unit_price.yaml"
 
       - name: "inserted_at"
@@ -137,8 +137,8 @@ schema:
         physicalType: "timestamp"
         required: true
         authoritativeDefinitions:
-          - type: "businessDefinition"
-            url: "file://business-definitions/global/inserted_at.yaml"
+          - type: "definition"
+            url: "file://business-definitions/technical/inserted_at.yaml"
 
 servers:
   - server: "databricks-prod"

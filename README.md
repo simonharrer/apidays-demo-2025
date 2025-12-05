@@ -9,7 +9,7 @@ This project demonstrates a metadata-driven approach to API and data contract de
 ├── business-definitions/       # Centralized business field definitions
 │   ├── flight/                 # Flight-related definitions
 │   │   └── flight_number.yaml
-│   ├── global/                 # Global/technical definitions
+│   ├── technical/              # Technical definitions
 │   │   └── inserted_at.yaml
 │   ├── order/                  # Order-related definitions
 │   │   ├── line_item_no.yaml
