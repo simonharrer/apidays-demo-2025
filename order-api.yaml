@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: IATA Order API
+  title: Order API
   version: 1.0.0
-  description: REST API for retrieving IATA NDC Orders including passenger information and line items.
+  description: REST API for retrieving Orders including passenger information and line items.
 
 servers:
   - url: https://api.airline.com/v1

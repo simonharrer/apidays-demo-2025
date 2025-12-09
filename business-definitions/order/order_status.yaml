@@ -8,12 +8,10 @@ enum:
   - "CANCELLED"
   - "COMPLETED"
   - "FAILED"
-description: "The current status of the Order in the IATA NDC lifecycle."
+description: "The current status of the Order lifecycle."
 classification: "internal"
 pii: false
 tags:
-  - "iata"
-  - "ndc"
   - "order"
 examples:
   - "CONFIRMED"

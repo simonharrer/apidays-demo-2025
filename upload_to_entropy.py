@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 # /// script
 # requires-python = ">=3.10"
 # dependencies = [
 #     "pyyaml",
 #     "requests",
+#     "python-dotenv",
 # ]
 # ///
 """
@@ -14,7 +15,7 @@ Usage:
 
 Environment variables:
     ENTROPY_API_KEY: API key for Entropy Data (required)
-    ENTROPY_BASE_URL: Base URL for Entropy Data API (default: https://entropydata.datamesh-manager.com)
+    ENTROPY_BASE_URL: Base URL for Entropy Data API (default: https://app.entropy-data.com)
 """
 
 import os
@@ -23,6 +24,10 @@ from pathlib import Path
 
 import yaml
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def get_config():
@@ -32,7 +37,7 @@ def get_config():
         print("Error: ENTROPY_API_KEY environment variable is required")
         sys.exit(1)
 
-    base_url = os.environ.get("ENTROPY_BASE_URL", "https://entropydata.datamesh-manager.com")
+    base_url = os.environ.get("ENTROPY_BASE_URL", "https://app.entropy-data.com")
     return api_key, base_url
 
 
@@ -77,6 +82,10 @@ def create_team(api_key: str, base_url: str, team_id: str) -> bool:
         "members": [
             {
                 "emailAddress": "simon.harrer@entropy-data.com",
+                "role": "owner"
+            },
+            {
+                "emailAddress": "pbrosse@amadeus.com",
                 "role": "owner"
             }
         ]

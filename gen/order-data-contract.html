@@ -1803,14 +1803,6 @@ video {
               <div class="flex items-center text-sm text-gray-500 whitespace-nowrap">
                 
                 <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 mr-1">
-                  <span>iata</span>
-                </span>
-                
-                <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 mr-1">
-                  <span>ndc</span>
-                </span>
-                
-                <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 mr-1">
                   <span>order</span>
                 </span>
                 
@@ -1873,7 +1865,7 @@ video {
                 
                 <div>
                   <dt class="text-sm font-medium text-gray-900">Purpose</dt>
-                  <dd class="mt-1 text-sm text-gray-700">Data contract for IATA NDC Order data including order details, passenger information, and line items.</dd>
+                  <dd class="mt-1 text-sm text-gray-700">Data contract for Order data including order details, passenger information, and line items.</dd>
                 </div>
                 
 
@@ -1900,19 +1892,19 @@ video {
                   <pre class="mermaid">
                     erDiagram
 	"**order**"{
-	order_id🔑 uuid
-	order_status varchar(20)
-	total_amount decimal(10,2)
-	passenger_name⚠️ varchar(200)
-	passenger_date_of_birth date
+	order_id🔑 string
+	order_status string
+	total_amount number
+	passenger_name⚠️ string
+	passenger_date_of_birth⚠️ date
 	inserted_at timestamp
 }
 	"**order_line_items**"{
-	order_id🔑 uuid
-	line_item_no🔑 int
-	flight_number varchar(10)
-	quantity int
-	unit_price decimal(10,2)
+	order_id🔑 string
+	line_item_no🔑 integer
+	flight_number string
+	quantity integer
+	unit_price number
 	inserted_at timestamp
 }
 
@@ -1984,7 +1976,7 @@ video {
                           
                           <span
                             class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">table</span>
-                          <div class="text-sm font-medium text-gray-500">None
+                          <div class="text-sm font-medium text-gray-500">Contains order header information including customer, totals, and passenger details.
                           </div>
                           
                         </th>
@@ -2029,10 +2021,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Order ID
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">string</div>
       
       <div class="text-xs text-gray-500">uuid</div>
       
@@ -2042,7 +2034,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">A unique identifier for the Order.
     </td>
   </tr>
     
@@ -2058,10 +2050,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Order Status
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">string</div>
       
       <div class="text-xs text-gray-500">varchar(20)</div>
       
@@ -2071,7 +2063,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The current status of the Order lifecycle.
     </td>
   </tr>
     
@@ -2087,10 +2079,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Total Amount
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">number</div>
       
       <div class="text-xs text-gray-500">decimal(10,2)</div>
       
@@ -2100,7 +2092,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The total monetary amount of the Order including all fees and taxes.
     </td>
   </tr>
     
@@ -2119,10 +2111,10 @@ video {
         class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-800 ring-1 ring-inset ring-red-600/20">Critical</span>
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Passenger Name
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">string</div>
       
       <div class="text-xs text-gray-500">varchar(200)</div>
       
@@ -2132,7 +2124,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The full name of the passenger.
     </td>
   </tr>
     
@@ -2147,13 +2139,14 @@ video {
       
       
       
+      <span
+        class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-800 ring-1 ring-inset ring-red-600/20">Critical</span>
+      
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Passenger Date of Birth
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
-      
-      <div class="text-xs text-gray-500">date</div>
+      <div class="text-sm text-gray-900">date</div>
       
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2161,7 +2154,7 @@ video {
       <span class="text-gray-400">No</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The date of birth of the passenger
     </td>
   </tr>
     
@@ -2177,12 +2170,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Inserted At
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
-      
-      <div class="text-xs text-gray-500">timestamp</div>
+      <div class="text-sm text-gray-900">timestamp</div>
       
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2190,7 +2181,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">Timestamp when the record was inserted into the database.
     </td>
   </tr>
     
@@ -2242,7 +2233,7 @@ video {
                           
                           <span
                             class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">table</span>
-                          <div class="text-sm font-medium text-gray-500">None
+                          <div class="text-sm font-medium text-gray-500">Contains individual line items for each order, including flight and pricing information.
                           </div>
                           
                         </th>
@@ -2287,10 +2278,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Order ID
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">string</div>
       
       <div class="text-xs text-gray-500">uuid</div>
       
@@ -2300,7 +2291,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">A unique identifier for the Order.
     </td>
   </tr>
     
@@ -2319,10 +2310,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Line Item Number
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">integer</div>
       
       <div class="text-xs text-gray-500">int</div>
       
@@ -2332,7 +2323,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The sequential number of a line item within an order.
     </td>
   </tr>
     
@@ -2348,10 +2339,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Flight Number
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">string</div>
       
       <div class="text-xs text-gray-500">varchar(10)</div>
       
@@ -2361,7 +2352,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The airline flight number consisting of a two-letter airline code followed by up to four digits.
     </td>
   </tr>
     
@@ -2377,10 +2368,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Quantity
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">integer</div>
       
       <div class="text-xs text-gray-500">int</div>
       
@@ -2390,7 +2381,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The number of units for an Order Item.
     </td>
   </tr>
     
@@ -2406,10 +2397,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Unit Price
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
+      <div class="text-sm text-gray-900">number</div>
       
       <div class="text-xs text-gray-500">decimal(10,2)</div>
       
@@ -2419,7 +2410,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">The price per unit for an Order Item.
     </td>
   </tr>
     
@@ -2435,12 +2426,10 @@ video {
       
       
     </td>
-    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">-
+    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">Inserted At
     </td>
     <td class="px-4 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">None</div>
-      
-      <div class="text-xs text-gray-500">timestamp</div>
+      <div class="text-sm text-gray-900">timestamp</div>
       
     </td>
     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2448,7 +2437,7 @@ video {
       <span class="text-green-600">Yes</span>
       
     </td>
-    <td class="px-4 py-4 text-sm text-gray-500">-
+    <td class="px-4 py-4 text-sm text-gray-500">Timestamp when the record was inserted into the database.
     </td>
   </tr>
     
@@ -2525,6 +2514,38 @@ video {
           
 
 
+          
+          <section id="sla">
+            <div class="px-4 sm:px-0">
+              <h1 class="text-base font-semibold leading-6 text-gray-900">Service Level Agreements</h1>
+              <p class="text-sm text-gray-500">SLA properties and commitments</p>
+            </div>
+
+            <div class="mt-2 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Element</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Driver</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">retention</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">year</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </section>
           
 
 
@@ -2634,7 +2655,7 @@ video {
       </div>
 
       <div class="mt-6 text-sm text-gray-400">
-        Created at 09 Dec 2025 15:32:30 UTC with <a href="https://cli.datacontract.com" class="text-gray-400 hover:text-gray-500">Data Contract CLI</a> v0.10.40
+        Created at 09 Dec 2025 21:40:23 UTC with <a href="https://cli.datacontract.com" class="text-gray-400 hover:text-gray-500">Data Contract CLI</a> v0.10.40
       </div>
 
     </div>
@@ -2665,8 +2686,6 @@ apiVersion: v3.1.0
 id: 550e8400-e29b-41d4-a716-446655440001
 name: Orders Data Contract (apidays 2025 - demo)
 tags:
-- iata
-- ndc
 - order
 status: active
 servers:
@@ -2676,61 +2695,121 @@ servers:
   catalog: airline_catalog
   schema: order_management
 description:
-  purpose: Data contract for IATA NDC Order data including order details, passenger
-    information, and line items.
+  purpose: Data contract for Order data including order details, passenger information,
+    and line items.
 domain: order-management
 schema:
 - name: order
   physicalType: table
+  description: Contains order header information including customer, totals, and passenger
+    details.
   physicalName: T_ORD_HDR_01
   properties:
   - name: order_id
     physicalType: uuid
     physicalName: ORD_ID
+    description: A unique identifier for the Order.
+    businessName: Order ID
     authoritativeDefinitions:
     - url: file://business-definitions/order/order_id.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
     primaryKey: true
     primaryKeyPosition: 1
+    logicalType: string
+    logicalTypeOptions:
+      pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
     required: true
     unique: true
+    classification: internal
+    examples:
+    - 550e8400-e29b-41d4-a716-446655440000
   - name: order_status
     physicalType: varchar(20)
     physicalName: ORD_STS_CD
+    description: The current status of the Order lifecycle.
+    businessName: Order Status
     authoritativeDefinitions:
     - url: file://business-definitions/order/order_status.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: string
     required: true
+    classification: internal
+    examples:
+    - CONFIRMED
   - name: total_amount
     physicalType: decimal(10,2)
     physicalName: TOT_AMT
+    description: The total monetary amount of the Order including all fees and taxes.
+    businessName: Total Amount
     authoritativeDefinitions:
     - url: file://business-definitions/order/total_amount.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: number
     required: true
+    classification: confidential
+    examples:
+    - '1299.99'
   - name: passenger_name
     physicalType: varchar(200)
     physicalName: PAX_NM
+    description: The full name of the passenger.
+    businessName: Passenger Name
     authoritativeDefinitions:
     - url: file://business-definitions/passenger/passenger_name.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: true
+    logicalType: string
     required: true
+    classification: sensitive
+    examples:
+    - John Smith
     criticalDataElement: true
   - name: passenger_date_of_birth
     physicalType: date
     physicalName: PAX_DOB
+    description: The date of birth of the passenger
+    businessName: Passenger Date of Birth
     authoritativeDefinitions:
     - url: file://business-definitions/passenger/passenger_date_of_birth.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: true
+    logicalType: date
+    classification: sensitive
+    examples:
+    - '1985-03-15'
+    criticalDataElement: true
   - name: inserted_at
     physicalType: timestamp
     physicalName: INS_TS
+    description: Timestamp when the record was inserted into the database.
+    businessName: Inserted At
     authoritativeDefinitions:
     - url: file://business-definitions/technical/inserted_at.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: timestamp
     required: true
+    classification: internal
+    examples:
+    - '2025-12-03T10:30:00Z'
   quality:
   - description: Total amount must equal sum of line item totals (quantity * unit_price)
+    name: order-total-sum-check
     type: sql
     mustBe: 0
     query: 'SELECT o.order_id
@@ -2746,65 +2825,129 @@ schema:
       '
 - name: order_line_items
   physicalType: table
+  description: Contains individual line items for each order, including flight and
+    pricing information.
   physicalName: T_ORD_LI_DTL_01
   properties:
   - name: order_id
     physicalType: uuid
     physicalName: ORD_ID
+    description: A unique identifier for the Order.
+    businessName: Order ID
     authoritativeDefinitions:
     - url: file://business-definitions/order/order_id.yaml
       type: definition
     customProperties:
     - property: references
       value: order.order_id
+    - property: pii
+      value: false
     primaryKey: true
     primaryKeyPosition: 1
+    logicalType: string
+    logicalTypeOptions:
+      pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
     required: true
+    classification: internal
+    examples:
+    - 550e8400-e29b-41d4-a716-446655440000
     relationships:
     - type: foreignKey
       to: order.order_id
   - name: line_item_no
     physicalType: int
     physicalName: LN_ITM_NBR
+    description: The sequential number of a line item within an order.
+    businessName: Line Item Number
     authoritativeDefinitions:
     - url: file://business-definitions/order/line_item_no.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
     primaryKey: true
     primaryKeyPosition: 2
+    logicalType: integer
     required: true
+    classification: internal
+    examples:
+    - 1
   - name: flight_number
     physicalType: varchar(10)
     physicalName: FLT_NBR
+    description: The airline flight number consisting of a two-letter airline code
+      followed by up to four digits.
+    businessName: Flight Number
     authoritativeDefinitions:
     - url: file://business-definitions/flight/flight_number.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: string
+    logicalTypeOptions:
+      pattern: ^[A-Z]{2}\d{1,4}$
     required: true
+    classification: internal
+    examples:
+    - LH123
   - name: quantity
     physicalType: int
     physicalName: QTY
+    description: The number of units for an Order Item.
+    businessName: Quantity
     authoritativeDefinitions:
     - url: file://business-definitions/order/quantity.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: integer
     required: true
+    classification: internal
+    examples:
+    - 1
   - name: unit_price
     physicalType: decimal(10,2)
     physicalName: UNT_PRC
+    description: The price per unit for an Order Item.
+    businessName: Unit Price
     authoritativeDefinitions:
     - url: file://business-definitions/order/unit_price.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: number
     required: true
+    classification: confidential
+    examples:
+    - 149.99
   - name: inserted_at
     physicalType: timestamp
     physicalName: INS_TS
+    description: Timestamp when the record was inserted into the database.
+    businessName: Inserted At
     authoritativeDefinitions:
     - url: file://business-definitions/technical/inserted_at.yaml
       type: definition
+    customProperties:
+    - property: pii
+      value: false
+    logicalType: timestamp
     required: true
+    classification: internal
+    examples:
+    - '2025-12-03T10:30:00Z'
 support:
 - channel: email
   url: mailto:order-management-team@airline.com
 - channel: teams
   url: https://teams.microsoft.com/l/channel/order-management-support
+slaProperties:
+- property: retention
+  value: 1
+  unit: year
 </code></pre>
           </div>
           <div class="mt-5 sm:mt-6">

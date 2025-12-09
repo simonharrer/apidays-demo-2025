@@ -6,18 +6,18 @@ version: "1.0.0"
 status: active
 domain: "order-management"
 description:
-  purpose: "Data contract for IATA NDC Order data including order details, passenger information, and line items."
+  purpose: "Data contract for Order data including order details, passenger information, and line items."
 tags:
-  - "iata"
-  - "ndc"
   - "order"
 
 schema:
   - name: "order"
+    description: "Contains order header information including customer, totals, and passenger details."
     physicalType: "table"
     physicalName: "T_ORD_HDR_01"
     quality:
       - type: "sql"
+        name: order-total-sum-check
         description: "Total amount must equal sum of line item totals (quantity * unit_price)"
         query: |
           SELECT o.order_id
@@ -79,6 +79,7 @@ schema:
             url: "file://business-definitions/technical/inserted_at.yaml"
 
   - name: "order_line_items"
+    description: "Contains individual line items for each order, including flight and pricing information."
     physicalType: "table"
     physicalName: "T_ORD_LI_DTL_01"
     properties:
@@ -146,6 +147,11 @@ servers:
     environment: "production"
     catalog: "airline_catalog"
     schema: "order_management"
+
+slaProperties:
+  - property: "retention"
+    value: 1
+    unit: "year"
 
 support:
   - channel: "email"

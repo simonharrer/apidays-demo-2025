@@ -113,7 +113,7 @@ def process_odcs_property(prop: dict, base_path: Path):
     """Process ODCS property and resolve business definitions."""
     if 'authoritativeDefinitions' in prop:
         for auth_def in prop['authoritativeDefinitions']:
-            if auth_def.get('type') == 'businessDefinition' and 'url' in auth_def:
+            if auth_def.get('type') in ('businessDefinition', 'definition') and 'url' in auth_def:
                 business_def = resolve_business_definition(auth_def['url'], base_path)
                 if business_def:
                     # Map title -> businessName in ODCS
@@ -134,6 +134,20 @@ def process_odcs_property(prop: dict, base_path: Path):
                     # Map criticalDataElement
                     if 'criticalDataElement' in business_def and 'criticalDataElement' not in prop:
                         prop['criticalDataElement'] = business_def['criticalDataElement']
+                    # Map pattern -> logicalTypeOptions.pattern
+                    if 'pattern' in business_def and 'logicalTypeOptions' not in prop:
+                        prop['logicalTypeOptions'] = {'pattern': business_def['pattern']}
+                    # Map pii to customProperties
+                    if 'pii' in business_def:
+                        if 'customProperties' not in prop:
+                            prop['customProperties'] = []
+                        # Check if pii already exists in customProperties
+                        pii_exists = any(cp.get('property') == 'pii' for cp in prop['customProperties'])
+                        if not pii_exists:
+                            prop['customProperties'].append({
+                                'property': 'pii',
+                                'value': business_def['pii']
+                            })
 
 
 def postprocess_odcs(input_path: Path, output_path: Path):

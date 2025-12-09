@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
-  title: IATA Order API
+  title: Order API
   version: 1.0.0
-  description: REST API for retrieving IATA NDC Orders including passenger information
-    and line items.
+  description: REST API for retrieving Orders including passenger information and
+    line items.
 servers:
 - url: https://api.airline.com/v1
 paths:
@@ -31,7 +31,7 @@ paths:
         schema:
           x-business-definition: file://business-definitions/flight/flight_number.yaml
           type: string
-          description: The airline flight number consisting of a two-letter IATA airline
+          description: The airline flight number consisting of a two-letter airline
             code followed by up to four digits.
           examples:
           - LH123
@@ -57,8 +57,7 @@ components:
           type: string
           format: uuid
           x-business-definition: file://business-definitions/order/order_id.yaml
-          description: A unique identifier for the Order as defined by the IATA NDC
-            standard.
+          description: A unique identifier for the Order.
           examples:
           - 550e8400-e29b-41d4-a716-446655440000
           pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
@@ -68,7 +67,7 @@ components:
         orderStatus:
           x-business-definition: file://business-definitions/order/order_status.yaml
           type: string
-          description: The current status of the Order in the IATA NDC lifecycle.
+          description: The current status of the Order lifecycle.
           examples:
           - CONFIRMED
           enum:
@@ -128,7 +127,7 @@ components:
                 x-business-definition: file://business-definitions/flight/flight_number.yaml
                 type: string
                 description: The airline flight number consisting of a two-letter
-                  IATA airline code followed by up to four digits.
+                  airline code followed by up to four digits.
                 examples:
                 - LH123
                 pattern: ^[A-Z]{2}\d{1,4}$

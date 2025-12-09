@@ -4,12 +4,10 @@ owner: "order-management-team"
 type: "string"
 format: "uuid"
 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-description: "A unique identifier for the Order as defined by the IATA NDC standard."
+description: "A unique identifier for the Order."
 classification: "internal"
 pii: false
 tags:
-  - "iata"
-  - "ndc"
   - "order"
 examples:
   - "550e8400-e29b-41d4-a716-446655440000"
