@@ -1,6 +1,15 @@
-# IATA Order Data Model Demo
+# Logical/Semantic Model Demo
+
+https://app.entropy-data.com/apidays-semantics-demo-2025/studio/datacontracts/
 
 This project demonstrates a metadata-driven approach to API and data contract development using centralized business definitions.
+
+## Scripts
+
+```bash
+uv run scripts/postprocess.py                                    # Generate documentation
+ENTROPY_API_KEY=your_api_key uv run scripts/upload_to_entropy.py # Upload to Entropy Data
+```
 
 ## Project Structure
 
@@ -21,9 +30,11 @@ This project demonstrates a metadata-driven approach to API and data contract de
 │   └── passenger/              # Passenger-related definitions
 │       ├── passenger_date_of_birth.yaml
 │       └── passenger_name.yaml
+├── scripts/                    # Utility scripts
+│   ├── postprocess.py          # Resolve references and generate documentation
+│   └── upload_to_entropy.py    # Upload definitions to Entropy Data
 ├── order-api.yaml              # OpenAPI specification (minimal, references business definitions)
 ├── order-data-contract.yaml    # ODCS data contract (minimal, references business definitions)
-├── postprocess.py              # Script to resolve references and generate documentation
 └── gen/                        # Generated output (created by postprocess.py)
     ├── order-api-resolved.yaml
     ├── order-api.html
@@ -52,30 +63,10 @@ Each business definition YAML file contains:
 3. **Postprocessing** resolves references and copies metadata (description, type, examples, etc.)
 4. **HTML documentation** is generated from the resolved files
 
-## Usage
-
-### Prerequisites
+## Prerequisites
 
 - [uv](https://github.com/astral-sh/uv) (Python package manager)
 - Node.js/npm (for Redocly CLI)
-
-### Generate Documentation
-
-```bash
-uv run postprocess.py
-```
-
-This will:
-1. Resolve business definitions in the OpenAPI spec → `gen/order-api-resolved.yaml`
-2. Resolve business definitions in the data contract → `gen/order-data-contract-resolved.yaml`
-3. Generate OpenAPI HTML documentation → `gen/order-api.html`
-4. Generate data contract HTML documentation → `gen/order-data-contract.html`
-
-### View Documentation
-
-Open the generated HTML files in a browser:
-- `gen/order-api.html` - API documentation (Redocly)
-- `gen/order-data-contract.html` - Data contract documentation
 
 ## Key Features
 
