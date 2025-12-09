@@ -1,0 +1,155 @@
+openapi: 3.1.0
+info:
+  title: IATA Order API
+  version: 1.0.0
+  description: REST API for retrieving IATA NDC Orders including passenger information
+    and line items.
+servers:
+- url: https://api.airline.com/v1
+paths:
+  /orders:
+    get:
+      summary: List all orders
+      operationId: listOrders
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+  /orders/search:
+    get:
+      summary: Search orders by flight number
+      operationId: searchOrders
+      parameters:
+      - name: flightNumber
+        in: query
+        required: true
+        schema:
+          x-business-definition: file://business-definitions/flight/flight_number.yaml
+          type: string
+          description: The airline flight number consisting of a two-letter IATA airline
+            code followed by up to four digits.
+          examples:
+          - LH123
+          pattern: ^[A-Z]{2}\d{1,4}$
+          x-classification: internal
+          x-pii: false
+          title: Flight Number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        orderId:
+          type: string
+          format: uuid
+          x-business-definition: file://business-definitions/order/order_id.yaml
+          description: A unique identifier for the Order as defined by the IATA NDC
+            standard.
+          examples:
+          - 550e8400-e29b-41d4-a716-446655440000
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          x-classification: internal
+          x-pii: false
+          title: Order ID
+        orderStatus:
+          x-business-definition: file://business-definitions/order/order_status.yaml
+          type: string
+          description: The current status of the Order in the IATA NDC lifecycle.
+          examples:
+          - CONFIRMED
+          enum:
+          - PENDING
+          - CONFIRMED
+          - CANCELLED
+          - COMPLETED
+          - FAILED
+          x-classification: internal
+          x-pii: false
+          title: Order Status
+        totalAmount:
+          x-business-definition: file://business-definitions/order/total_amount.yaml
+          type: number
+          description: The total monetary amount of the Order including all fees and
+            taxes.
+          examples:
+          - '1299.99'
+          x-classification: confidential
+          x-pii: false
+          title: Total Amount
+        passengerName:
+          x-business-definition: file://business-definitions/passenger/passenger_name.yaml
+          type: string
+          description: The full name of the passenger.
+          examples:
+          - John Smith
+          x-classification: sensitive
+          x-pii: true
+          title: Passenger Name
+        passengerDateOfBirth:
+          type: string
+          format: date
+          x-business-definition: file://business-definitions/passenger/passenger_date_of_birth.yaml
+          description: The date of birth of the passenger
+          examples:
+          - '1985-03-15'
+          x-classification: sensitive
+          x-pii: true
+          x-criticalDataElement: true
+          title: Passenger Date of Birth
+        lineItems:
+          type: array
+          items:
+            type: object
+            properties:
+              lineItemNo:
+                x-business-definition: file://business-definitions/order/line_item_no.yaml
+                type: integer
+                description: The sequential number of a line item within an order.
+                examples:
+                - 1
+                x-classification: internal
+                x-pii: false
+                title: Line Item Number
+              flightNumber:
+                x-business-definition: file://business-definitions/flight/flight_number.yaml
+                type: string
+                description: The airline flight number consisting of a two-letter
+                  IATA airline code followed by up to four digits.
+                examples:
+                - LH123
+                pattern: ^[A-Z]{2}\d{1,4}$
+                x-classification: internal
+                x-pii: false
+                title: Flight Number
+              quantity:
+                x-business-definition: file://business-definitions/order/quantity.yaml
+                type: integer
+                description: The number of units for an Order Item.
+                examples:
+                - 1
+                x-classification: internal
+                x-pii: false
+                title: Quantity
+              unitPrice:
+                x-business-definition: file://business-definitions/order/unit_price.yaml
+                type: number
+                description: The price per unit for an Order Item.
+                examples:
+                - 149.99
+                x-classification: confidential
+                x-pii: false
+                title: Unit Price

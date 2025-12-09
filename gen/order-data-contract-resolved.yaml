@@ -1,0 +1,146 @@
+apiVersion: v3.1.0
+kind: DataContract
+id: 550e8400-e29b-41d4-a716-446655440001
+name: Orders Data Contract (apidays 2025 - demo)
+version: 1.0.0
+status: active
+domain: order-management
+description:
+  purpose: Data contract for IATA NDC Order data including order details, passenger
+    information, and line items.
+tags:
+- iata
+- ndc
+- order
+schema:
+- name: order
+  physicalType: table
+  physicalName: T_ORD_HDR_01
+  quality:
+  - type: sql
+    description: Total amount must equal sum of line item totals (quantity * unit_price)
+    query: 'SELECT o.order_id
+
+      FROM orders o
+
+      LEFT JOIN order_line_items oli ON o.order_id = oli.order_id
+
+      GROUP BY o.order_id, o.total_amount
+
+      HAVING o.total_amount != COALESCE(SUM(oli.quantity * oli.unit_price), 0)
+
+      '
+    mustBe: 0
+  properties:
+  - name: order_id
+    physicalName: ORD_ID
+    physicalType: uuid
+    required: true
+    unique: true
+    primaryKey: true
+    primaryKeyPosition: 1
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/order_id.yaml
+  - name: order_status
+    physicalName: ORD_STS_CD
+    physicalType: varchar(20)
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/order_status.yaml
+  - name: total_amount
+    physicalName: TOT_AMT
+    physicalType: decimal(10,2)
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/total_amount.yaml
+  - name: passenger_name
+    physicalName: PAX_NM
+    physicalType: varchar(200)
+    required: true
+    criticalDataElement: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/passenger/passenger_name.yaml
+  - name: passenger_date_of_birth
+    physicalName: PAX_DOB
+    physicalType: date
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/passenger/passenger_date_of_birth.yaml
+  - name: inserted_at
+    physicalName: INS_TS
+    physicalType: timestamp
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/technical/inserted_at.yaml
+- name: order_line_items
+  physicalType: table
+  physicalName: T_ORD_LI_DTL_01
+  properties:
+  - name: order_id
+    physicalName: ORD_ID
+    physicalType: uuid
+    required: true
+    primaryKey: true
+    primaryKeyPosition: 1
+    relationships:
+    - type: foreignKey
+      to: order.order_id
+    customProperties:
+    - property: references
+      value: order.order_id
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/order_id.yaml
+  - name: line_item_no
+    physicalName: LN_ITM_NBR
+    physicalType: int
+    required: true
+    primaryKey: true
+    primaryKeyPosition: 2
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/line_item_no.yaml
+  - name: flight_number
+    physicalName: FLT_NBR
+    physicalType: varchar(10)
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/flight/flight_number.yaml
+  - name: quantity
+    physicalName: QTY
+    physicalType: int
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/quantity.yaml
+  - name: unit_price
+    physicalName: UNT_PRC
+    physicalType: decimal(10,2)
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/order/unit_price.yaml
+  - name: inserted_at
+    physicalName: INS_TS
+    physicalType: timestamp
+    required: true
+    authoritativeDefinitions:
+    - type: definition
+      url: file://business-definitions/technical/inserted_at.yaml
+servers:
+- server: databricks-prod
+  type: databricks
+  environment: production
+  catalog: airline_catalog
+  schema: order_management
+support:
+- channel: email
+  url: mailto:order-management-team@airline.com
+- channel: teams
+  url: https://teams.microsoft.com/l/channel/order-management-support
